@@ -181,7 +181,9 @@ class ClaseGeneradorExcel():
     # REPORTE EXCEL 1 
     def gene_reporte_uno(self):
 
-        # valores a cargar
+        # valores a cargar *-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*
+        'pueden ser pasados por parametro'
+
         listaprimero = [    
             # pedido1-pedido2-pedido3-pedido4-pedido5-pedido6
             [8,2,8,1,8,8], 
@@ -204,6 +206,7 @@ class ClaseGeneradorExcel():
             [0,0,98,0,0,0], 
         ]
 
+        # titulo-encabezado *-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*
         mesr = "(Enero - Febrero)"
         ahor = "Año 2020"
         titulor = "Encabezado"
@@ -214,7 +217,7 @@ class ClaseGeneradorExcel():
         workbook = xlsxwriter.Workbook(self.rep_uno_ex)
         worksheet = workbook.add_worksheet()
         worksheet.set_paper(9)  # A4
-        worksheet.set_landscape() # horizontal
+        worksheet.set_portrait() # vertical
 
         # ESTILOS *-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*
         self.gen_estilos(workbook)
@@ -295,18 +298,22 @@ class ClaseGeneradorExcel():
 
         workbook.close()
 
+        # conversion pdf *-*-*-*-*-*-*-*-*
         self.raiz_manip_pdf.convertirdor_pdf(
             formato= 1, 
             ingreso= self.rep_uno_ex, 
             salida= self.rep_uno_pd
-            ) # convertir
+            )
 
+        # guardar pdf *-*-*-*-*-*-*-*-*
         self.guardarArchivo(self.rep_uno_pd)
 
     # REPORTE EXCEL 2
     def gene_reporte_dos(self):
 
-        # valores a cargar
+        # valores a cargar *-*-*-*-*-*-*-*-*
+        'pueden ser pasados por parametro'
+
         listasegundo = [
             # caso1-caso2-caso3-caso4-caso5-caso6
             [3,6,3,8,8,3],
@@ -327,6 +334,7 @@ class ClaseGeneradorExcel():
             [0,0,98,0,0,0], 
         ]
 
+        # titulo-encabezado *-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*
         mesr = "(Enero - Febrero)"
         ahor = "Año 2020"
         titulor = "Encabezado"
@@ -435,12 +443,13 @@ class ClaseGeneradorExcel():
         # cerra archivo
         workbook.close()
 
-
+        # conversion pdf *-*-*-*-*-*-*-*-*
         self.raiz_manip_pdf.convertirdor_pdf(
             formato= 2, 
             ingreso= self.rep_dos_ex, 
             salida= self.rep_dos_pd
-            ) # convertir
+            )
 
+        # guardar pdf *-*-*-*-*-*-*-*-*
         self.guardarArchivo(self.rep_dos_pd)
 
