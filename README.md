@@ -13,7 +13,7 @@ Lo importante en este algoritmo es saber el manejo de excel con la libreria [`xl
 	* [Conversión](#conversión)
 	* [Guardado](#guardado)
   * [Fuentes](#fuentes)
-  * [Previzualización](#previzualización)
+  * [Previsualización](#previsualización)
 
 # Recursos utilizados
 
@@ -185,7 +185,7 @@ def guardarArchivo(self,ruta_pdf):
  * [TheQuickBlog (Script de conversión)](https://thequickblog.com/convert-an-excel-filexlsx-to-pdf-python/ "TheQuickBlog")
  * [Stackoverflow (Configuraciones)](https://stackoverflow.com/questions/42385563/convert-excel-to-pdf-in-landscape-orientation "Stackoverflow")
  
-# Previzualización
+# Previsualización
  
  **Uno**
  
