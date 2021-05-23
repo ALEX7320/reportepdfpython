@@ -5,42 +5,29 @@ import xlsxwriter, os, shutil, webbrowser
 from PySide2.QtWidgets import QFileDialog
 
 # convertir excel a pdf
-from win32com import client
-import win32api
+import win32com.client as win32
 
 class ClaseManipularPdf():
 
-    def convertirdor_pdf(self, formato, ingreso, salida):
+    def convertirdor_pdf(self, ingreso, salida):
 
         '''
-        formato : orientacion de hoja
         ingreso : ruta excel
         salida : ruta pdf
         '''
 
-        app = client.DispatchEx("Excel.Application")
+        app = win32.gencache.EnsureDispatch("Excel.Application")
         app.Interactive = False
         app.Visible = False
         app.DisplayAlerts = False
 
         Workbook = app.Workbooks.Open(ingreso)
 
-        # ubicar pagina en vertical=1 / horizontal=2
-        ws_source = Workbook.Worksheets("Sheet1")    
-        ws_source.PageSetup.Orientation = formato
-        ws_source.Select()
-
-        try:
-            Workbook.ActiveSheet.ExportAsFixedFormat(0,salida)
-        except Exception as error:
-            print ('No se pudo convertir en formato PDF. Confirme que el entorno cumple ' 
-                    'con todos los requisitos y vuelva a intentarlo')
-            print(error)
-
         # salida
-        Workbook.Close()
-        app.Application.Quit()
+        Workbook.ExportAsFixedFormat(0, salida)
+        Workbook.RefreshAll()
         app.Quit()
+
 
 class ClaseGeneradorExcel():
 
@@ -300,7 +287,6 @@ class ClaseGeneradorExcel():
 
         # conversion pdf *-*-*-*-*-*-*-*-*
         self.raiz_manip_pdf.convertirdor_pdf(
-            formato= 1, 
             ingreso= self.rep_uno_ex, 
             salida= self.rep_uno_pd
             )
@@ -445,7 +431,6 @@ class ClaseGeneradorExcel():
 
         # conversion pdf *-*-*-*-*-*-*-*-*
         self.raiz_manip_pdf.convertirdor_pdf(
-            formato= 2, 
             ingreso= self.rep_dos_ex, 
             salida= self.rep_dos_pd
             )

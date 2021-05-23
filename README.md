@@ -4,6 +4,9 @@ Al trabajar con pdf en Python se suele usar la libreria `reportlab`; sin embargo
 
 Lo importante en este algoritmo es saber el manejo de excel con la libreria [`xlsxwriter`](https://xlsxwriter.readthedocs.io/ "xlsxwriter") cuya documentación pienso que es muy comprensible, ademas de tener un conocimiento básico de rutas.
 
+**Nota**
+Se publicó una guía sobre 'Como crear PDF en Python con FPDF' guía totalmente gratis en Youtube → [ENLACE](https://github.com/ALEX7320/guia-pdf-python "ENLACE")
+
 **Indice**
 
   * [Recursos utilizados](#recursos-utilizados)
@@ -106,9 +109,8 @@ self.raiz_manip_pdf = ClaseManipularPdf()
 Necesitamos tener estos parametros en cuenta
 
 ```python
-def convertirdor_pdf(self, formato, ingreso, salida):
+def convertirdor_pdf(self, ingreso, salida):
     '''
-    formato : orientacion de hoja
     ingreso : ruta excel
     salida : ruta pdf
     '''
@@ -118,7 +120,6 @@ Recordemos que al final de cada plantilla se realiza la conversión, cons sus re
 ```python
         # conversion pdf *-*-*-*-*-*-*-*-*
         self.raiz_manip_pdf.convertirdor_pdf(
-            formato= 1, 
             ingreso= self.rep_uno_ex, 
             salida= self.rep_uno_pd
             )
@@ -127,28 +128,16 @@ Recordemos que al final de cada plantilla se realiza la conversión, cons sus re
 Este algoritmo convertira el excel a pdf, teniendo en cuenta sus respectivas rutas de entrada y salida.
 
 ```python
-app = client.DispatchEx("Excel.Application")
+app = win32.gencache.EnsureDispatch("Excel.Application")
 app.Interactive = False
 app.Visible = False
 app.DisplayAlerts = False
 
 Workbook = app.Workbooks.Open(ingreso)
 
-# ubicar pagina en vertical=1 / horizontal=2
-ws_source = Workbook.Worksheets("Sheet1")    
-ws_source.PageSetup.Orientation = formato
-ws_source.Select()
-
-try:
-    Workbook.ActiveSheet.ExportAsFixedFormat(0,salida)
-except Exception as error:
-    print ('No se pudo convertir en formato PDF. Confirme que el entorno cumple ' 
-            'con todos los requisitos y vuelva a intentarlo')
-    print(error)
-
 # salida
-Workbook.Close()
-app.Application.Quit()
+Workbook.ExportAsFixedFormat(0, salida)
+Workbook.RefreshAll()
 app.Quit()
 ```
 
